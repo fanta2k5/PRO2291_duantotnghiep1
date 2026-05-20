@@ -1,0 +1,1 @@
+print ("Thanh hello nhúm trưởng Qoàng tẻn tẻn")
