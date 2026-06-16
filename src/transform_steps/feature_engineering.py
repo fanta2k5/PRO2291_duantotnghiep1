@@ -88,3 +88,38 @@ class FeatureEngineering:
         return self.df
 
 
+def add_features(df):
+    df = df.copy()
+
+    df["order_date"] = pd.to_datetime(
+        df["order_date"],
+        errors="coerce"
+    )
+
+    df["revenue"] = df["qty_ordered"] * df["price"]
+
+    df["profit"] = df["total"] - df["discount_amount"]
+
+    df["discount_rate"] = (
+        df["discount_amount"] / df["revenue"]
+    ) * 100
+
+    df["discount_rate"] = (
+        df["discount_rate"]
+        .fillna(0)
+        .replace([float("inf"), -float("inf")], 0)
+    )
+
+    df["quarter"] = df["order_date"].dt.quarter
+    df["day"] = df["order_date"].dt.day
+    df["day_of_week"] = df["order_date"].dt.day_name()
+    df["year_month"] = df["order_date"].dt.strftime("%Y-%m")
+
+    df["order_value"] = (
+        df.groupby("order_id")["revenue"]
+        .transform("sum")
+    )
+
+    print("Feature Engineering hoàn tất.")
+
+    return df
