@@ -8,14 +8,17 @@ INPUT_PATH = Path("data/cleaned/sales_cleaned.csv")
 OUTPUT_DIR = Path("data/aggregates")
 
 
-def create_aggregates():
+def create_aggregates(df=None):
 
     # Tạo thư mục aggregates nếu chưa tồn tại
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     # Đọc dữ liệu từ file CSV vào DataFrame
     # low_memory=False giúp tránh cảnh báo kiểu dữ liệu không đồng nhất
-    df = pd.read_csv(INPUT_PATH, low_memory=False)
+    if df is None:
+        df = pd.read_csv(INPUT_PATH, low_memory=False)
+
+    revenue_col = "revenue" if "revenue" in df.columns else "total"
 
     # ==================================================
     # 1. TỔNG DOANH THU THEO NĂM
@@ -24,7 +27,7 @@ def create_aggregates():
     # Nhóm dữ liệu theo cột year
     # Sau đó tính tổng doanh thu (total) của từng năm
     sales_by_year = (
-        df.groupby("year")["total"]
+        df.groupby("year")[revenue_col]
         .sum()
         .reset_index()
     )
@@ -42,7 +45,7 @@ def create_aggregates():
     # Nhóm dữ liệu theo tháng
     # Tính tổng doanh thu từng tháng
     sales_by_month = (
-        df.groupby("month")["total"]
+        df.groupby("month")[revenue_col]
         .sum()
         .reset_index()
         .sort_values("month")  # Sắp xếp tháng từ 1 đến 12
@@ -61,10 +64,10 @@ def create_aggregates():
     # Nhóm dữ liệu theo vùng
     # Tính tổng doanh thu của từng vùng
     sales_by_region = (
-        df.groupby("region")["total"]
+        df.groupby("region")[revenue_col]
         .sum()
         .reset_index()
-        .sort_values("total", ascending=False)  # Cao xuống thấp
+        .sort_values(revenue_col, ascending=False)  # Cao xuống thấp
     )
 
     # Xuất kết quả ra CSV
@@ -80,10 +83,10 @@ def create_aggregates():
     # Nhóm dữ liệu theo category
     # Tính tổng doanh thu từng danh mục
     sales_by_category = (
-        df.groupby("category")["total"]
+        df.groupby("category")[revenue_col]
         .sum()
         .reset_index()
-        .sort_values("total", ascending=False)
+        .sort_values(revenue_col, ascending=False)
     )
 
     # Xuất kết quả ra CSV
@@ -100,10 +103,10 @@ def create_aggregates():
     # Tính tổng doanh thu từng sản phẩm
     # Sắp xếp giảm dần và lấy 10 sản phẩm đầu tiên
     top_products = (
-        df.groupby("sku")["total"]
+        df.groupby("sku")[revenue_col]
         .sum()
         .reset_index()
-        .sort_values("total", ascending=False)
+        .sort_values(revenue_col, ascending=False)
         .head(10)
     )
 

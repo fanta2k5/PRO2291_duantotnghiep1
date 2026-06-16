@@ -30,6 +30,17 @@ def standardize_order_status(df):
     }
 
     df["status"] = df["status"].replace(status_mapping)
+    df["order_group"] = "other"
+
+    df.loc[
+        df["status"].isin(["completed", "received"]),
+        "order_group"
+    ] = "success"
+
+    df.loc[
+        df["status"].isin(["cancelled", "closed"]),
+        "order_group"
+    ] = "failed"
 
     return df
 
@@ -122,9 +133,7 @@ def classify_discount(df):
         else:
             return "High Discount"
 
-    df["discount_group"] = (
-        df["discount_percent"] * 100
-    ).apply(discount_group)
+    df["discount_group"] = df["discount_percent"].apply(discount_group)
 
     return df
 
@@ -217,7 +226,7 @@ def detect_business_errors(df):
 
     if "discount_percent" in df.columns:
         df["is_business_error"] |= (
-            df["discount_percent"] > 1
+            df["discount_percent"] > 100
         )
 
     return df
