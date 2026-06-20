@@ -253,21 +253,3 @@ def apply_business_logic(df):
 
     return df
 
-# Note cho nhóm trưởng nếu có lỗi thì thêm này dô
-# Ở file "cleaner.py" thêm from cleaning.business_logic import apply_business_logic
-# Sau câu lệnh df = handle_nulls(df) thêm df = apply_business_logic(df)
-
-# Pipeline:
-# Read CSV
-# ↓
-# Standardizer
-# ↓
-# Datatype
-# ↓
-# Null
-# ↓
-# Business Logic
-# ↓
-# Outlier
-# ↓
-# sales_cleaned.csv
