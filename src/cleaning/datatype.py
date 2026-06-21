@@ -1,33 +1,53 @@
 import pandas as pd
 
+
 def convert_datatypes(df):
-    # Chuyển ngày tháng
-    if "order_date" in df.columns:
-        df["order_date"] = pd.to_datetime(
-            df["order_date"],
-            dayfirst=True,
-            errors="coerce"
-        )
+    df = df.copy()
 
-    if "customer_since" in df.columns:
-        df["customer_since"] = pd.to_datetime(
-            df["customer_since"],
-            dayfirst=True,
-            errors="coerce"
-        )
+    print("\n" + "=" * 50)
+    print("CHUYỂN ĐỔI KIỂU DỮ LIỆU")
+    print("=" * 50)
 
-    # Chuyển các cột số
+    date_cols = [
+        "order_date",
+        "customer_since"
+    ]
+
+    for col in date_cols:
+        if col in df.columns:
+            df[col] = pd.to_datetime(
+                df[col].astype(str).str.strip(),
+                errors="coerce",
+                format="mixed"
+            )
+
+            print(f"Đã chuyển đổi {col} → datetime")
+            print(f"Null sau convert {col}: {df[col].isnull().sum():,}")
+
     numeric_cols = [
         "age",
+        "qty_ordered",
         "price",
-        "quantity",
-        "discount",
-        "profit",
-        "total"
+        "value",
+        "discount_amount",
+        "discount_percent",
+        "total",
+        "cust_id",
+        "item_id",
+        "year",
+        "ref_num",
+        "zip"
     ]
 
     for col in numeric_cols:
         if col in df.columns:
-            df[col] = pd.to_numeric(df[col], errors="coerce")
+            df[col] = pd.to_numeric(
+                df[col],
+                errors="coerce"
+            )
+
+            print(f"Đã chuyển đổi {col} → numeric")
+
+    print("Chuyển đổi kiểu dữ liệu đã hoàn tất.")
 
     return df
