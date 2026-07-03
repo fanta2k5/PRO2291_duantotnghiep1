@@ -9,10 +9,7 @@ phân tích doanh thu bán hàng
 - [Kiến trúc hệ thống](#-kiến-trúc-hệ-thống)
 - [Dashboard](#-dashboard)
 - [Cấu trúc thư mục](#-cấu-trúc-thư-mục)
-- [Hướng dẫn cài đặt](#-hướng-dẫn-cài-đặt--chạy)
-- [Dữ liệu đầu ra](#-dữ-liệu-đầu-ra)
-- [Kết quả phân tích](#-kết-quả-phân-tích)
-- [Nhóm thực hiện](#-nhóm-thực-hiện)
+
 
 ---
 ##  Tổng quan dự án
@@ -253,53 +250,78 @@ PRO2291_duantotnghiep1/
 │
 ├── data/
 │   ├── raw/
-│   │   └── sales_06_FY2020-21.csv
+│   │   ├── sales_06_FY2020-21.csv      # Dữ liệu gốc ban đầu
+│   │   └── readme.md                   # Mô tả nguồn dữ liệu
 │   │
 │   ├── cleaned/
-│   │   ├── sales_cleaned.csv
-│   │   └── outliers.csv
+│   │   ├── sales_cleaned.csv           # Dữ liệu sau Data Cleaning
+│   │   ├── sales_transformed.csv       # Dữ liệu sau Transform
+│   │   └── outliers.csv                # Dữ liệu ngoại lệ được phát hiện
 │   │
 │   ├── dim_fact/
-│   │   ├── dim_customer.csv
-│   │   ├── dim_product.csv
-│   │   ├── dim_location.csv
-│   │   ├── dim_time.csv
-│   │   └── fact_sales.csv
+│   │   ├── dim_customer.csv            # Dimension Customer
+│   │   ├── dim_product.csv             # Dimension Product
+│   │   ├── dim_location.csv            # Dimension Location
+│   │   ├── dim_time.csv                # Dimension Time
+│   │   └── fact_sales.csv              # Fact Table bán hàng
+│   │                                  # Star Schema phục vụ BI
 │   │
 │   └── aggregates/
-│      ├── sales_by_category.csv
-│      ├── sales_by_month.csv
-│      ├── sales_by_region.csv
-│      ├── sales_by_year.csv
-│      └── top_10_products.csv
-│
-│
+│       ├── sales_by_category.csv       # Doanh thu theo danh mục
+│       ├── sales_by_month.csv          # Doanh thu theo tháng
+│       ├── sales_by_region.csv         # Doanh thu theo khu vực
+│       ├── sales_by_year.csv           # Doanh thu theo năm
+│       └── top_10_products.csv         # Top 10 sản phẩm doanh thu cao
+│                                      # Data Mart phục vụ Dashboard
 │
 ├── src/
-│   ├── cleaner.py
-│   ├── eda.py
-│   ├── check_integrity.py
-│   ├── main.py
-│   ├── transform.py
-│   ├── forecast.py
-│   └── cleaning/
+│   │
+│   ├── cleaner.py                      # Chạy quy trình làm sạch dữ liệu
+│   ├── transform.py                    # Chạy quy trình biến đổi dữ liệu
+│   ├── eda.py                          # Phân tích khám phá dữ liệu
+│   ├── forecast.py                     # Dự báo dữ liệu (chưa làm)
+│   ├── check_integrity.py              # Kiểm tra tính toàn vẹn dữ liệu
+│   ├── main.py                         # Điểm khởi chạy chính
+│   │
+│   ├── cleaning/
+│   │   ├── __init__.py
+│   │   ├── datatype.py                 # Chuyển đổi kiểu dữ liệu
+│   │   ├── null.py                     # Xử lý Missing Values
+│   │   ├── outlier.py                  # Phát hiện Outlier
+│   │   └── standardizer.py             # Chuẩn hóa dữ liệu
+│   │
+│   └── transform_steps/
 │       ├── __init__.py
-│       ├── null.py
-│       ├── outlier.py
-│       ├── standardizer.py
-│       └── datatype.py
+│       ├── feature_engineering.py      # Tạo KPI và đặc trưng mới
+│       ├── business_logic.py           # Áp dụng nghiệp vụ
+│       └── aggregation.py              # Tạo bảng tổng hợp Dashboard
+│
+│      # Toàn bộ quy trình ETL của dự án
+│      # Cleaning → Transform → Aggregation
 │
 ├── notebooks/
-│   └── eda.ipynb
+│   ├── eda.ipynb                       # Notebook EDA
+│   │
+│   └── Visualization/
+│       ├── executive_dashboard.ipynb   # Dashboard tổng quan
+│       ├── product_dashboard.ipynb     # Dashboard sản phẩm
+│       ├── customer_dashboard.ipynb    # Dashboard khách hàng
+│       ├── region_dashboard.ipynb      # Dashboard khu vực
+│       └── promotion_dashboard.ipynb   # Dashboard khuyến mãi
 │
-├── dashboards/
-│   └── dashboard_final.twb
+│      # Python Visualization
+│      # Matplotlib + Seaborn
 │
 ├── docs/
-│   ├── bao_cao_final.docx
-│   └── images/
+│   ├── bao_cao_Three_Correct.docx      # Báo cáo chính thức
+│   └── readme.md                       # Hướng dẫn tài liệu
 │
-├── README.md
-├── requirements.txt
-└── .gitignore
-```
+├── data làm việc nhóm/                 # Tài liệu trao đổi nhóm
+│   └── readme.md
+│
+├── README.md                           # Giới thiệu dự án
+├── requirements.txt                    # Danh sách thư viện Python
+├── .gitignore                          # File bỏ qua khi push Git
+│
+│
+└── venv/                               # Môi trường ảo Python
