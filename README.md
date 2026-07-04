@@ -328,15 +328,19 @@ PRO2291_duantotnghiep1/
 ```
 
 ## câu chuyện dữ liệu 
-```
+
 Trong bối cảnh cạnh tranh ngày càng cao, doanh nghiệp không chỉ cần biết mình đang bán được bao nhiêu hàng mà còn phải hiểu rõ các yếu tố nào đang tạo ra doanh thu và ảnh hưởng đến kết quả kinh doanh. Với tập dữ liệu bán hàng gồm hơn 286.000 giao dịch trong giai đoạn năm tài chính 2020–2021, nhóm xây dựng câu chuyện dữ liệu nhằm trả lời câu hỏi trung tâm:
 Doanh nghiệp nên tập trung vào đâu để duy trì và gia tăng doanh thu trong tương lai?
+
 Để trả lời câu hỏi này, nhóm triển khai quá trình phân tích theo một trình tự logic. Đầu tiên, nhóm xây dựng Executive Dashboard để quan sát bức tranh tổng quan của doanh nghiệp thông qua các chỉ số KPI như tổng doanh thu, tổng số đơn hàng, tổng số khách hàng và giá trị đơn hàng trung bình. Đồng thời, các biểu đồ xu hướng theo thời gian giúp đánh giá doanh thu và số lượng đơn hàng đang tăng trưởng hay suy giảm qua từng tháng.
+
 Sau khi hiểu được tình hình kinh doanh tổng thể, nhóm tiếp tục phân tích sản phẩm và danh mục sản phẩm nhằm xác định những sản phẩm nào đóng góp nhiều doanh thu nhất cho doanh nghiệp. Từ đó đánh giá các nhóm sản phẩm chủ lực và những sản phẩm có tiềm năng phát triển.
+
 Tiếp theo, nhóm tập trung vào khách hàng, tìm hiểu đặc điểm nhân khẩu học như giới tính, độ tuổi và giá trị mua hàng của từng nhóm khách hàng. Phân tích này giúp xác định phân khúc khách hàng trọng tâm và những khách hàng có giá trị cao đối với doanh nghiệp.
+
 Bên cạnh đó, nhóm tiến hành phân tích khu vực địa lý để xác định vùng miền, bang và thành phố nào đang tạo ra doanh thu lớn nhất. Kết quả giúp doanh nghiệp hiểu rõ thị trường mục tiêu và định hướng mở rộng kinh doanh.
+
 Cuối cùng, nhóm đánh giá hiệu quả của các chương trình khuyến mãi và phương thức thanh toán, từ đó xác định liệu việc giảm giá có thực sự giúp gia tăng doanh thu hay không.
+
 Thông qua chuỗi phân tích này, câu chuyện dữ liệu được hình thành theo hướng từ tổng quan đến chi tiết, giúp doanh nghiệp hiểu rõ nguồn gốc doanh thu, hành vi khách hàng và các yếu tố tác động đến hiệu quả kinh doanh, làm cơ sở cho việc đưa ra các quyết định quản trị trong tương lai.
 Cách tiếp cận này giúp người xem dễ dàng theo dõi và hiểu được mối liên hệ giữa các yếu tố ảnh hưởng đến kết quả kinh doanh.
-
-```
