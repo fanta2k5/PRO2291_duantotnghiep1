@@ -34,25 +34,55 @@ def transform_to_star_schema():
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    dim_customer = df[[
-        "cust_id", "gender", "age", "customer_since", "customer_type"
-    ]].drop_duplicates().rename(columns={
-        "cust_id": "customer_id"
-    })
+    dim_customer = (
+        df[
+            [
+                "cust_id",
+                "gender",
+                "age",
+                "customer_since",
+                "customer_type"
+            ]
+        ]
+        .drop_duplicates()
+        .rename(columns={
+            "cust_id": "customer_id"
+        })
+    )
 
-    dim_product = df[[
-        "sku", "category", "price"
-    ]].drop_duplicates().rename(columns={
-        "sku": "product_id"
-    })
+    dim_product = (
+        df[
+            ["sku", "category", "price"]
+        ]
+        .sort_values("price")
+        .drop_duplicates(subset=["sku"])
+        .rename(columns={
+            "sku": "product_id"
+        })
+    )
 
-    dim_location = df[[
-        "city", "state", "region", "zip"
-    ]].drop_duplicates().reset_index(drop=True)
+    dim_location = (
+        df[
+            [
+                "city",
+                "state",
+                "region",
+                "zip"
+            ]
+        ]
+        .drop_duplicates()
+        .reset_index(drop=True)
+    )
 
     dim_location["location_id"] = dim_location.index + 1
 
-    dim_time = df[["order_date"]].drop_duplicates()
+    dim_time = (
+        df[
+            ["order_date"]
+        ]
+        .drop_duplicates()
+    )
+
     dim_time["date_id"] = dim_time["order_date"].dt.strftime("%Y%m%d")
     dim_time["day"] = dim_time["order_date"].dt.day
     dim_time["month"] = dim_time["order_date"].dt.month
@@ -84,7 +114,6 @@ def transform_to_star_schema():
         "order_group",
         "order_value_group",
         "payment_method",
-        "is_outlier"
     ]].rename(columns={
         "cust_id": "customer_id",
         "sku": "product_id",
