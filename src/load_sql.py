@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, text
 # KẾT NỐI SQL SERVER
 # =========================
 
-SERVER = r"LAPTOP-87EUJRCL\MSSQLSERVER1"
+SERVER = r"NGUYENTHUC\MSSQLSERVER1"
 DATABASE = "SalesAnalyticsDW"
 
 connection_string = (
@@ -48,10 +48,20 @@ def load_to_sql():
         low_memory=False
     )
 
+    # ========================================================
+    # XỬ LÝ DỮ LIỆU TRƯỚC KHI NẠP
+    # ========================================================
+    
+    # 1. Loại bỏ các dòng bị trùng mã sản phẩm ở dim_product, giữ lại dòng đầu tiên
+    dim_product = dim_product.drop_duplicates(subset=['product_id'], keep='first')
+
+    # 2. Loại bỏ cột 'is_outlier' thừa trong fact_sales nếu tồn tại
+    if 'is_outlier' in fact_sales.columns:
+        fact_sales = fact_sales.drop(columns=['is_outlier'])
+
     # =========================
     # XÓA DỮ LIỆU CŨ
     # =========================
-
     print("Deleting old data...")
 
     with engine.begin() as conn:
@@ -78,7 +88,6 @@ def load_to_sql():
         if_exists="append",
         index=False
     )
-
     print(f"Loaded {len(dim_customer):,} rows.")
 
     print("Loading dim_product...")
@@ -88,7 +97,6 @@ def load_to_sql():
         if_exists="append",
         index=False
     )
-
     print(f"Loaded {len(dim_product):,} rows.")
 
     print("Loading dim_location...")
@@ -98,7 +106,6 @@ def load_to_sql():
         if_exists="append",
         index=False
     )
-
     print(f"Loaded {len(dim_location):,} rows.")
 
     print("Loading dim_time...")
@@ -108,7 +115,6 @@ def load_to_sql():
         if_exists="append",
         index=False
     )
-
     print(f"Loaded {len(dim_time):,} rows.")
 
     print("Loading fact_sales...")
@@ -118,7 +124,6 @@ def load_to_sql():
         if_exists="append",
         index=False
     )
-
     print(f"Loaded {len(fact_sales):,} rows.")
 
     print("=" * 60)
