@@ -77,9 +77,9 @@ def load_to_sql():
 
     print("Old data deleted successfully.")
 
-    # =========================
+    # ==========================
     # LOAD DỮ LIỆU
-    # =========================
+    # ==========================
 
     print("Loading dim_customer...")
     dim_customer.to_sql(
