@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, text
 # KẾT NỐI SQL SERVER
 # =========================
 
-SERVER = r"BAOLESG\MSSQLSERVER1"
+SERVER = r"LAPTOP-87EUJRCL\MSSQLSERVER1"
 DATABASE = "SalesAnalyticsDW"
 
 connection_string = (
