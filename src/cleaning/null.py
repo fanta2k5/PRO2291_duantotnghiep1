@@ -136,7 +136,7 @@ def xu_ly_gia_tri_thieu(bang_du_lieu):
     )
 
     print(
-        f"[✔] Null còn lại: "
+        f"Null còn lại: "
         f"{tong_null_con_lai}"
     )
 

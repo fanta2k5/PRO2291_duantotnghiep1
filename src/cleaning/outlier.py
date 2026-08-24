@@ -17,7 +17,7 @@ class OutlierDetector:
         """Kiểm tra dữ liệu đã được load chưa"""
         if self.df is None:
             raise ValueError(
-                "Dữ liệu chưa được truyền vào!"
+                "Dữ liệu chưa được truyền vào"
             )
 
     def get_numeric_columns(self):

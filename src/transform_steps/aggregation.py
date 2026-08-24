@@ -20,9 +20,8 @@ def create_aggregates(df=None):
 
     revenue_col = "revenue" if "revenue" in df.columns else "total"
 
-    # ==================================================
     # 1. TỔNG DOANH THU THEO NĂM
-    # ==================================================
+
 
     # Nhóm dữ liệu theo cột year
     # Sau đó tính tổng doanh thu (total) của từng năm
@@ -38,9 +37,8 @@ def create_aggregates(df=None):
         index=False
     )
 
-    # ==================================================
     # 2. TỔNG DOANH THU THEO THÁNG
-    # ==================================================
+
 
     # Nhóm dữ liệu theo tháng
     # Tính tổng doanh thu từng tháng
@@ -57,9 +55,8 @@ def create_aggregates(df=None):
         index=False
     )
 
-    # ==================================================
     # 3. TỔNG DOANH THU THEO VÙNG (REGION)
-    # ==================================================
+
 
     # Nhóm dữ liệu theo vùng
     # Tính tổng doanh thu của từng vùng
@@ -76,9 +73,9 @@ def create_aggregates(df=None):
         index=False
     )
 
-    # ==================================================
+
     # 4. TỔNG DOANH THU THEO DANH MỤC SẢN PHẨM
-    # ==================================================
+
 
     # Nhóm dữ liệu theo category
     # Tính tổng doanh thu từng danh mục
@@ -95,9 +92,9 @@ def create_aggregates(df=None):
         index=False
     )
 
-    # ==================================================
+
     # 5. TOP 10 SẢN PHẨM CÓ DOANH THU CAO NHẤT
-    # ==================================================
+
 
     # Nhóm dữ liệu theo mã sản phẩm (sku)
     # Tính tổng doanh thu từng sản phẩm
